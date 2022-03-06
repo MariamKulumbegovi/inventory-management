@@ -1,0 +1,10 @@
+.Add-Wrapper {
+  background-color: #343a40;
+  min-height: 100vh;
+}
+.form {
+  margin-top: 10%;
+  height: fit-content;
+  border-radius: 12px;
+  padding-bottom: 20px;
+}

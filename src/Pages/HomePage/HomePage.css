@@ -1,0 +1,10 @@
+.HomePage-Wrapper {
+  background-color: #343a40;
+  min-height: 100vh;
+  padding: 20px;
+}
+.emptyList {
+  height: 200px;
+  font-size: 25px;
+  text-align: center;
+}
