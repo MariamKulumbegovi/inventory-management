@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 import { ADD_PATH } from "../../constants/paths";
 import { getItem } from "../../heplers/LocalStorage";
+import { useInventoryContext } from "../../Provider/InventoryProvider";
+
 export const HomePage = () => {
   const [items, setItems] = useState(getItem("Inventory"));
+
+  const { deleteItem } = useInventoryContext();
+  console.log("render");
+  useEffect(() => {}, [items, deleteItem]);
 
   return (
     <div className="container-fluid HomePage-Wrapper">
@@ -13,9 +19,9 @@ export const HomePage = () => {
           ნივთის დამატება
         </button>
       </Link>
-      <table className="table table-light mt-3  table-responsive container table-hover caption">
+      <table className="fixed table  table-light mt-3  table-responsive container table-hover caption">
         <thead>
-          <tr>
+          <tr className="min">
             <th scope="col">ნივთის სახელი</th>
             <th scope="col">ნივთის ადგილმდებარეობა</th>
             <th scope="col">ფასი</th>
@@ -26,12 +32,18 @@ export const HomePage = () => {
           {items ? (
             items.map((item) => {
               return item ? (
-                <tr key={item.name}>
+                <tr className="min" key={item.id}>
                   <td>{item.name}</td>
                   <td>{item.location}</td>
                   <td>{item.price} ლ</td>
                   <td>
-                    <button type="button" className="btn btn-danger btn-sm">
+                    <button
+                      onClick={() =>
+                        deleteItem(item.id) & setItems(getItem("Inventory"))
+                      }
+                      type="button"
+                      className="btn btn-danger btn-sm"
+                    >
                       წაშლა
                     </button>
                   </td>

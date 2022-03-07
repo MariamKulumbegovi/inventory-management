@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getItem } from "../../heplers/LocalStorage";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-
+import nextId from "react-id-generator";
 import "./AddNewItem.css";
 
 export const AddNewItem = () => {
@@ -18,6 +18,7 @@ export const AddNewItem = () => {
 
     for (let [key, value] of fd.entries()) {
       inventoryData[key] = value;
+      inventoryData.id = nextId();
     }
 
     const items = getItem("Inventory");
@@ -33,6 +34,7 @@ export const AddNewItem = () => {
       <form onSubmit={onSubmit} className="container form bg-light">
         <div className="row mb-3">
           <select
+            title="აირჩიეთ ადგილმდებარეობა"
             className="form-select"
             aria-label="location"
             required
@@ -40,7 +42,9 @@ export const AddNewItem = () => {
             value={selectValue}
             onChange={({ target }) => setSelectvalue(target.value)}
           >
-            <option defaultValue={"ადგილმდებარეობა"}>ადგილმდებარეობა</option>
+            <option value="" disabled selected>
+              ადგილმდებარეობა
+            </option>
             <option value="მთავარი ოფისი">მთავარი ოფისი</option>
             <option value="კავეა გალერია">კავეა გალერია</option>
             <option value="კავეა თბილისი მოლი">კავეა თბილისი მოლი</option>
@@ -54,6 +58,7 @@ export const AddNewItem = () => {
           </label>
           <div className="col-sm-10">
             <input
+              title="შეიყვანეთ სახელი"
               name="name"
               value={name}
               onChange={({ target }) => setName(target.value)}
@@ -71,6 +76,7 @@ export const AddNewItem = () => {
           </label>
           <div className="col-sm-10">
             <input
+              title="შეიყვანეთ ფასი"
               type="number"
               className="form-control"
               id="price"
