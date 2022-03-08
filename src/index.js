@@ -6,13 +6,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { InventoryProvider } from "./Provider/InventoryProvider";
-
+import { ErrorBoundary } from "./errorBoundary";
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <InventoryProvider>
-        <App />
-      </InventoryProvider>
+      <ErrorBoundary>
+        <InventoryProvider>
+          <App />
+        </InventoryProvider>
+      </ErrorBoundary>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
