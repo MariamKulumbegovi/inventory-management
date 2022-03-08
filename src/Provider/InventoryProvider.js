@@ -16,7 +16,7 @@ export const InventoryProvider = ({ children }) => {
             a.push(item);
 
             saveItem("Inventory", a);
-          } else if (items.length <= 1) {
+          } else if (items.length <= 2) {
             removeItem("Inventory");
           }
         }

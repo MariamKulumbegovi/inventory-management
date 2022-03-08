@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getItem } from "../../heplers/LocalStorage";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import nextId from "react-id-generator";
 import "./AddNewItem.css";
+import { v4 as uuid } from "uuid";
+import { Link } from "react-router-dom";
+import { HOME_PATH } from "../../constants/paths";
 
 export const AddNewItem = () => {
   const [selectValue, setSelectvalue] = useState("");
@@ -15,10 +17,10 @@ export const AddNewItem = () => {
 
     const fd = new FormData(event.target);
     const inventoryData = {};
-
+    const unique_id = uuid();
     for (let [key, value] of fd.entries()) {
       inventoryData[key] = value;
-      inventoryData.id = nextId();
+      inventoryData.id = unique_id;
     }
 
     const items = getItem("Inventory");
@@ -28,6 +30,12 @@ export const AddNewItem = () => {
       : setItems([items, inventoryData]);
   };
   useEffect(() => {}, [items]);
+
+  const mes = () => {
+    setTimeout(function () {
+      alert("successfully added");
+    }, 0.1);
+  };
 
   return (
     <div className="container-fluid  d-flex justify-content-center Add-Wrapper">
@@ -87,9 +95,14 @@ export const AddNewItem = () => {
             />
           </div>
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button onClick={mes} type="submit" className="btn btn-primary">
           დამატება
         </button>
+        <Link className="ms-3" to={HOME_PATH}>
+          <button type="button" className="btn btn-secondary ">
+            სია
+          </button>
+        </Link>
       </form>
     </div>
   );
